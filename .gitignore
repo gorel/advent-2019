@@ -12,3 +12,22 @@ pom.xml.asc
 .lein-failures
 .nrepl-port
 .cpcache/
+
+# Hide input files
+inputs/*
+example.txt
+input.txt
+test.txt
+advent/resources/*
+
+# Environments
+.envrc
+.direnv/
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+

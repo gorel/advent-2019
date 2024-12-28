@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# First ensure day is a number padded with leading zeros
+# If it already has zeros, do nothing
+day=$1
+if [ ${#day} -eq 1 ]; then
+	day="0$day"
+fi
+
+if [ -f "inputs/example$day.txt" ]; then
+	echo "=== Example input === "
+	clj -M -m "advent.day$day" <"inputs/example$day.txt"
+fi
+
+if [ -f "inputs/day$day.txt" ]; then
+	echo "=== Real input ==="
+	clj -M -m "advent.day$day" <"inputs/day$day.txt"
+fi
