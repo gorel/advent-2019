@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# First ensure day is a number padded with leading zeros
+# If it already has zeros, do nothing
+day=$1
+if [ ${#day} -eq 1 ]; then
+	day="0$day"
+fi
+
+example="inputs/example${day}.txt"
+real="inputs/day${day}.txt"
+
+aocd "$day" 2019 >"$real"
+
+touch "$example"
+nvim "$example" && head -n 5 "$example" && echo && cat "$real" | tail -n 5
