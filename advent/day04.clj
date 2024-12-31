@@ -3,26 +3,20 @@
   (:require [advent.core :as core])
   (:gen-class))
 
-(defn digits [n]
-  (mapv #(Integer/parseInt (str %)) (str n)))
-
-(defn number [digits]
-  (reduce #(+ (* 10 %1) %2) 0 digits))
-
-(defn has-double? [digits]
-  (some #(>= (count %) 2) (partition-by identity digits)))
-
-(defn has-double-strict? [digits]
-  (some #(= (count %) 2) (partition-by identity digits)))
+(defn has-double? 
+  ([digits] (has-double? digits false))
+  ([digits strict]
+   (let [f (if strict = >=)]
+     (some #(f (count %) 2) (partition-by identity digits)))))
 
 (defn -main [& argv]
   (let [[lo hi] (map
                   Integer/parseInt
                   (str/split (core/read-input (first argv)) #"-"))
         valid (->> (range lo (inc hi))
-                   (map digits)
+                   (map #(mapv (fn [ch] (Integer/parseInt (str ch))) (str %)))
                    (filter #(apply <= %))
                    (filter has-double?))
-        valid2 (filter has-double-strict? valid)]
+        valid2 (filter #(has-double? % true) valid)]
     (println "Part 1:" (count valid))
     (println "Part 2:" (count valid2))))
